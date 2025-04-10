@@ -2,17 +2,17 @@ package com.Matrix;
 
 public class MatrixBuilder {
 
+    // Monta a matriz 5x6 a partir da string (por linhas)
     public static char[][] buildMatrix(String myCode) {
-        char[][] matrix = new char[5][6]; // 5 linhas e 6 colunas
+        char[][] matrix = new char[5][6];
         int index = 0;
 
-        for (int i = 0; i < 5; i++) {          // linhas
-            for (int j = 0; j < 6; j++) {      // colunas
+        for (int i = 0; i < 5; i++) {          
+            for (int j = 0; j < 6; j++) {      
                 if (index < myCode.length()) {
-                    matrix[i][j] = myCode.charAt(index);
-                    index++;
+                    matrix[i][j] = myCode.charAt(index++);
                 } else {
-                    matrix[i][j] = ' '; // preenche com espaço em branco se sobrar espaço
+                    matrix[i][j] = ' ';
                 }
             }
         }
@@ -20,17 +20,47 @@ public class MatrixBuilder {
         return matrix;
     }
 
-    public static String CriptoAnalise(char[][] MyCodCripto) {
+    // Desfaz a matriz criptografada (por colunas)
+    public static String desBuildMatrix(char[][] matrix) {
         StringBuilder result = new StringBuilder();
-    
-        // varre coluna por coluna
-        for (int j = 0; j < 6; j++) {         // 6 colunas
-            for (int i = 0; i < 5; i++) {     // 5 linhas
-                result.append(MyCodCripto[i][j]);
+
+        for (int i = 0; i < 5; i++) {         
+            for (int j = 0; j < 6; j++) {     
+                result.append(matrix[i][j]);
             }
         }
-    
+
         return result.toString();
     }
-    
+
+    // Criptografa lendo por colunas
+    public static String criptografar(char[][] matrix) {
+        StringBuilder result = new StringBuilder();
+
+        for (int j = 0; j < 6; j++) {         
+            for (int i = 0; i < 5; i++) {     
+                result.append(matrix[i][j]);
+            }
+        }
+
+        return result.toString();
+    }
+
+    // Descriptografa uma string que foi criptografada por colunas
+    public static char[][] descriptografar(String criptografado) {
+        char[][] matrix = new char[5][6];
+        int index = 0;
+
+        for (int j = 0; j < 6; j++) {         
+            for (int i = 0; i < 5; i++) {     
+                if (index < criptografado.length()) {
+                    matrix[i][j] = criptografado.charAt(index++);
+                } else {
+                    matrix[i][j] = ' ';
+                }
+            }
+        }
+
+        return matrix;
+    }
 }
